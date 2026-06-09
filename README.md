@@ -4,16 +4,16 @@ A governed, self-hosted AI access pattern for private inference, strong identity
 
 ## Overview
 
-This repository documents A Governed Zero Trust AI Gateway, a self-hosted AI reference architecture designed to expose private AI services to approved users without placing those services directly on the public internet.
+This repository documents **A Governed Zero Trust AI Gateway**, a self-hosted AI reference architecture designed to expose private AI services to approved users without placing those services directly on the public internet.
 
 The architecture combines:
 
 - Tailscale WireGuard mesh access
-- Nginx Proxy Manager with auth_request
+- Nginx Proxy Manager with `auth_request`
 - Authelia MFA
 - OpenWebUI for AI chat and RAG access
 - Ollama for local inference
-- macOS pf firewall restriction of the Ollama API
+- macOS `pf` firewall restriction of the Ollama API
 - AdGuard Home with Quad9 DNS-over-HTTPS
 - Role-scoped knowledge base access
 - Admin-mediated provisioning and four-step offboarding
@@ -43,15 +43,31 @@ Capability without governance is not a security posture.
 
 Primary OpenWebUI access path:
 
-text Client → Tailscale WireGuard overlay → Nginx Proxy Manager → Authelia MFA → OpenWebUI → Ollama local inference 
+```text
+Client
+→ Tailscale WireGuard overlay
+→ Nginx Proxy Manager
+→ Authelia MFA
+→ OpenWebUI
+→ Ollama local inference
+```
 
 DNS path:
 
-text Device → Tailscale DNS policy → AdGuard Home → Quad9 DoH 
+```text
+Device
+→ Tailscale DNS policy
+→ AdGuard Home
+→ Quad9 DoH
+```
 
 Inference path:
 
-text OpenWebUI on Umbrel → MacBook Air M4 → Ollama API on port 11434 
+```text
+OpenWebUI on Umbrel
+→ MacBook Air M4
+→ Ollama API on port 11434
+```
 
 The Ollama inference API is restricted by host firewall so only localhost and the Umbrel server can reach it.
 
@@ -63,7 +79,7 @@ Tailscale provides private network access using a WireGuard-based overlay. Devic
 
 ### Nginx Proxy Manager
 
-Nginx Proxy Manager serves as the reverse proxy and TLS termination layer. The critical control is Nginx auth_request, which forces an authorization check with Authelia before traffic reaches OpenWebUI.
+Nginx Proxy Manager serves as the reverse proxy and TLS termination layer. The critical control is Nginx `auth_request`, which forces an authorization check with Authelia before traffic reaches OpenWebUI.
 
 ### Authelia
 
@@ -75,7 +91,7 @@ OpenWebUI provides the AI chat interface, user-scoped access, model routing, and
 
 ### Ollama
 
-Ollama runs locally and provides private inference. The API is restricted with macOS pf firewall rules so only localhost and Umbrel can connect.
+Ollama runs locally and provides private inference. The API is restricted with macOS `pf` firewall rules so only localhost and Umbrel can connect.
 
 ### AdGuard Home
 
@@ -89,9 +105,9 @@ AdGuard Home provides DNS filtering for tailnet-connected devices. Allowed DNS q
 | User identity | Authelia MFA |
 | Network privacy | WireGuard overlay |
 | TLS termination | Nginx Proxy Manager with Tailscale-issued certificate |
-| AI access enforcement | NPM auth_request before OpenWebUI |
+| AI access enforcement | NPM `auth_request` before OpenWebUI |
 | RAG access control | OpenWebUI role-scoped KB collections |
-| Inference API protection | macOS pf firewall restricting Ollama to localhost and Umbrel |
+| Inference API protection | macOS `pf` firewall restricting Ollama to localhost and Umbrel |
 | DNS filtering | AdGuard Home with Quad9 DoH |
 | Offboarding | Four-step revocation across Tailscale, Authelia, OpenWebUI, and KB access scope |
 
@@ -108,7 +124,7 @@ This prevents lingering access through device trust, identity, application acces
 
 ## AI Security Validation
 
-CloudSentinel includes AI-specific validation beyond traditional application testing.
+This Zero Trust AI gateway includes AI-specific validation beyond traditional application testing.
 
 Tested areas include:
 
@@ -120,6 +136,8 @@ Tested areas include:
 - AIBOM / knowledge base recovery validation
 
 This is not traditional SAST or DAST. It is dynamic AI security validation focused on model behavior, retrieval boundaries, and governance of the AI reasoning layer.
+
+This work forms part of the CloudSentinel Solutions reference methodology for governed AI access and AI security validation.
 
 ## Known Gaps
 
@@ -163,8 +181,15 @@ It is a documented, working security architecture pattern for governed self-host
 
 ## Purpose
 
-CloudSentinel demonstrates that private AI can be exposed to approved users while preserving identity, segmentation, scoped knowledge, local inference, and controlled offboarding.
+This architecture demonstrates that private AI can be exposed to approved users while preserving identity, segmentation, scoped knowledge, local inference, and controlled offboarding.
 
 ## Author
 
-Adam McKinski
+Adam McKinski  
+CloudSentinel Solutions
+
+## License / Use
+
+© 2026 Adam McKinski / CloudSentinel Solutions. All rights reserved.
+
+This repository is published for portfolio, reference, and educational review purposes. No license is granted to copy, modify, redistribute, or commercialize the documents or architecture materials without written permission.
