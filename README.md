@@ -26,8 +26,8 @@ The goal is simple:
 
 | Document | Purpose |
 |---|---|
-| A Governed Zero Trust AI Gateway — Architecture | End-to-end architecture diagram showing the client path, Tailscale overlay, Umbrel services, Authelia MFA, OpenWebUI, Ollama inference, AdGuard DNS, and Immich exposure path. |
-| A Governed Zero Trust AI Gateway — Executive 1-Pager | Executive summary of the problem, what was built, Zero Trust controls, identity provisioning model, known gaps, and control outcome. |
+| [A Governed Zero Trust AI Gateway — Architecture](./A%20Governed%20Zero%20Trust%20AI%20Gateway_Architecture.pdf) | End-to-end architecture diagram showing the client path, Tailscale overlay, Umbrel services, Authelia MFA, OpenWebUI, Ollama inference, AdGuard DNS, and Immich exposure path. |
+| [A Governed Zero Trust AI Gateway — Executive 1-Pager](./A%20Governed%20Zero%20Trust%20AI%20Gateway_Executive_1Pager.pdf) | Executive summary of the problem, what was built, Zero Trust controls, identity provisioning model, known gaps, and control outcome. |
 
 ## Problem
 
