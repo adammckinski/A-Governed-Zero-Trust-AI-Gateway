@@ -1,6 +1,6 @@
 # A Governed Zero Trust AI Gateway
 
-A governed, self-hosted AI access pattern for private inference, strong identity, scoped knowledge access, and clean offboarding.
+A governed, self-hosted AI access pattern, **aligned to modern AppSec and SDLC practices**, for private inference, strong identity, scoped knowledge access, and clean offboarding.
 
 ## Overview
 
