@@ -28,6 +28,7 @@ The goal is simple:
 |---|---|
 | [A Governed Zero Trust AI Gateway Architecture](./A%20Governed%20Zero%20Trust%20AI%20Gateway_Architecture.pdf) | End-to-end architecture diagram showing the client path, Tailscale overlay, Umbrel services, Authelia MFA, OpenWebUI, Ollama inference, AdGuard DNS, and host firewall enforcement. |
 | [A Governed Zero Trust AI Gateway Executive 1-Pager](./A%20Governed%20Zero%20Trust%20AI%20Gateway_Executive_1Pager.pdf) | Executive summary of the problem, what was built, Zero Trust controls, identity provisioning model, known gaps, and control outcome. |
+| [RAG Pipeline STRIDE Data Flow Diagram](./DFD_RAG_Pipeline.pdf) | Level 1 data flow diagram showing the governed RAG path, trust boundary, role-scoped KB retrieval, conversation logging, Ollama inference, and STRIDE threat labels. |
 
 ## Problem
 
@@ -162,7 +163,7 @@ Planned improvements include:
 - Add a break-glass administrative procedure.
 - Automate Tailscale certificate renewal and NPM import.
 - Formalize onboarding and offboarding workflows.
-- Build a complete STRIDE threat model with data flow diagrams.
+- Expand STRIDE modeling beyond the RAG pipeline into additional service paths.
 - Improve access log retention and evidence capture.
 - Evaluate Open Policy Agent or similar PDP capability.
 - Productize the pattern into a reusable CloudSentinel reference blueprint.
