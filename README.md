@@ -1,19 +1,19 @@
 # A Governed Zero Trust AI Gateway
 
-A governed, self-hosted AI access pattern, aligned to modern AppSec and SDLC practices, for private inference, strong identity, scoped knowledge access, and clean offboarding.
+A governed, self-hosted AI access pattern, **aligned to modern AppSec and SDLC practices**, for private inference, strong identity, scoped knowledge access, and clean offboarding.
 
 ## Overview
 
-This repository documents A Governed Zero Trust AI Gateway, a self-hosted AI reference architecture designed to expose private AI services to approved users without placing those services directly on the public internet.
+This repository documents **A Governed Zero Trust AI Gateway**, a self-hosted AI reference architecture designed to expose private AI services to approved users without placing those services directly on the public internet.
 
 The architecture combines:
 
 - Tailscale WireGuard mesh access
-- Nginx Proxy Manager with auth_request
+- Nginx Proxy Manager with `auth_request`
 - Authelia MFA
 - OpenWebUI for AI chat and RAG access
 - Ollama for local inference
-- macOS pf firewall restriction of the Ollama API
+- macOS `pf` firewall restriction of the Ollama API
 - AdGuard Home with Quad9 DNS-over-HTTPS
 - Role-scoped knowledge base access
 - Admin-mediated provisioning and four-step offboarding
@@ -26,8 +26,8 @@ The goal is simple:
 
 | Document | Purpose |
 |---|---|
-| A Governed Zero Trust AI Gateway Architecture | End-to-end architecture diagram showing the client path, Tailscale overlay, Umbrel services, Authelia MFA, OpenWebUI, Ollama inference, AdGuard DNS, and host firewall enforcement. |
-| A Governed Zero Trust AI Gateway Executive 1-Pager | Executive summary of the problem, what was built, Zero Trust controls, identity provisioning model, known gaps, and control outcome. |
+| [A Governed Zero Trust AI Gateway Architecture](./A%20Governed%20Zero%20Trust%20AI%20Gateway_Architecture.pdf) | End-to-end architecture diagram showing the client path, Tailscale overlay, Umbrel services, Authelia MFA, OpenWebUI, Ollama inference, AdGuard DNS, and host firewall enforcement. |
+| [A Governed Zero Trust AI Gateway Executive 1-Pager](./A%20Governed%20Zero%20Trust%20AI%20Gateway_Executive_1Pager.pdf) | Executive summary of the problem, what was built, Zero Trust controls, identity provisioning model, known gaps, and control outcome. |
 
 ## Problem
 
@@ -43,15 +43,31 @@ Capability without governance is not a security posture.
 
 Primary OpenWebUI access path:
 
-text Client → Tailscale WireGuard overlay → Nginx Proxy Manager → Authelia MFA → OpenWebUI → Ollama local inference 
+```text
+Client
+→ Tailscale WireGuard overlay
+→ Nginx Proxy Manager
+→ Authelia MFA
+→ OpenWebUI
+→ Ollama local inference
+```
 
 DNS path:
 
-text Device → Tailscale DNS policy → AdGuard Home → Quad9 DoH 
+```text
+Device
+→ Tailscale DNS policy
+→ AdGuard Home
+→ Quad9 DoH
+```
 
 Inference path:
 
-text OpenWebUI on Umbrel → MacBook Air M4 → Ollama API on port 11434 
+```text
+OpenWebUI on Umbrel
+→ MacBook Air M4
+→ Ollama API on port 11434
+```
 
 The Ollama inference API is restricted by host firewall so only localhost and the Umbrel server can reach it.
 
@@ -63,7 +79,7 @@ Tailscale provides private network access using a WireGuard-based overlay. Devic
 
 ### Nginx Proxy Manager
 
-Nginx Proxy Manager serves as the reverse proxy and TLS termination layer. The critical control is Nginx auth_request, which forces an authorization check with Authelia before traffic reaches OpenWebUI. This turns NPM from a basic reverse proxy into the gateway enforcement point for the protected AI interface.
+Nginx Proxy Manager serves as the reverse proxy and TLS termination layer. The critical control is Nginx `auth_request`, which forces an authorization check with Authelia before traffic reaches OpenWebUI. This turns NPM from a basic reverse proxy into the gateway enforcement point for the protected AI interface.
 
 ### Authelia
 
@@ -75,7 +91,7 @@ OpenWebUI provides the AI chat interface, user-scoped access, model routing, and
 
 ### Ollama
 
-Ollama runs locally and provides private inference. The API is restricted with macOS pf firewall rules so only localhost and Umbrel can connect.
+Ollama runs locally and provides private inference. The API is restricted with macOS `pf` firewall rules so only localhost and Umbrel can connect.
 
 ### AdGuard Home
 
@@ -89,9 +105,9 @@ AdGuard Home provides DNS filtering for tailnet-connected devices. Allowed DNS q
 | User identity | Authelia MFA |
 | Network privacy | WireGuard overlay |
 | TLS termination | Nginx Proxy Manager with Tailscale-issued certificate |
-| AI access enforcement | NPM auth_request before OpenWebUI |
+| AI access enforcement | NPM `auth_request` before OpenWebUI |
 | RAG access control | OpenWebUI role-scoped KB collections |
-| Inference API protection | macOS pf firewall restricting Ollama to localhost and Umbrel |
+| Inference API protection | macOS `pf` firewall restricting Ollama to localhost and Umbrel |
 | DNS filtering | AdGuard Home with Quad9 DoH |
 | Offboarding | Four-step revocation across Tailscale, Authelia, OpenWebUI, and KB access scope |
 
