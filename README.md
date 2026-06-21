@@ -146,7 +146,6 @@ This is a working reference architecture, not a finished enterprise platform.
 
 Known gaps include:
 
-- Authelia currently depends on MacBook availability.
 - Ollama inference depends on MacBook availability.
 - Tailscale certificate lifecycle still requires manual renewal handling.
 - Dynamic policy decisioning is not yet implemented.
